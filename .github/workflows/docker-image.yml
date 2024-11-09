@@ -5,31 +5,47 @@ on:
     branches:
       - main
 
-env:
-  ACR_LOGIN_SERVER1: ${{ secrets.ACR_LOGIN_SERVER }}
-  ACR_USERNAME1: ${{ secrets.ACR_USERNAME }}
-  ACR_PASSWORD1: ${{ secrets.ACR_PASSWORD }}
+# env:
+#   ACR_LOGIN_SERVER1: ${{ secrets.ACR_LOGIN_SERVER }}
+#   ACR_USERNAME1: ${{ secrets.ACR_USERNAME }}
+#   ACR_PASSWORD1: ${{ secrets.ACR_PASSWORD }}
+
+# jobs:
+#   build:
+#     runs-on: [self-hosted, suraj-kamble]
+
+#     steps:
+#     - name: Checkout repository
+#       uses: actions/checkout@v2
+#     - name: Log in to Azure CLI 
+#       uses: azure/login@v1 
+#       with: 
+#          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+#     - name: Log in to Azure CLIi
+#       run: |
+#         sudo docker login $ACR_LOGIN_SERVER1 -u $ACR_USERNAME1 -p $ACR_PASSWORD1
+
+#     - name: Build and tag Docker image
+#       run: |
+#         docker build . -t $ACR_LOGIN_SERVER1/vilas:latest
+
+#     - name: Push Docker image to ACR
+#       run: |
+#         docker push $ACR_LOGIN_SERVER1/vilas:latest
 
 jobs:
   build:
-    runs-on: [self-hosted, suraj-kamble]
-
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Log in to Azure CLI 
-      uses: azure/login@v1 
+    - name: Azure login
+      uses: azure/docker-login@v1
       with: 
-         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Log in to Azure CLIi
-      run: |
-        sudo docker login $ACR_LOGIN_SERVER1 -u $ACR_USERNAME1 -p $ACR_PASSWORD1
-
-    - name: Build and tag Docker image
-      run: |
-        docker build . -t $ACR_LOGIN_SERVER1/vilas:latest
-
-    - name: Push Docker image to ACR
-      run: |
-        docker push $ACR_LOGIN_SERVER1/vilas:latest
+         login-server: helloworkday.azurecr.io
+         username: helloworkday
+         password: 6kDss40tNNITUbPZiofDQq8uZdEczZ2T1PSYfwFfql+ACRDjdmQr
+    - run: |
+        docker build . -t helloworkday.azurecr.io/myapp:${{ github.sha }}
+        docker push helloworkday.azurecr.io/myapp:${{ github.sha }}
