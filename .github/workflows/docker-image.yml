@@ -29,14 +29,14 @@ jobs:
          # tenant-id: ${{ secrets.AZURE_TENANT_ID }}
          # subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
          # enable-AzPSSession: true
-    - name: Log in to Azure CLIi
-      run: |
-        sudo docker login $ACR_LOGIN_SERVER -u $ACR_USERNAME -p $ACR_PASSWORD
+    # - name: Log in to Azure CLIi
+    #   run: |
+    #     sudo docker login $ACR_LOGIN_SERVER -u $ACR_USERNAME -p $ACR_PASSWORD
 
     - name: Build and tag Docker image
       run: |
-        docker build . -t $ACR_LOGIN_SERVER/vilas:latest
+        docker build . -t $ACR_LOGIN_SERVER/vilas:${{ github.sha }}
 
     - name: Push Docker image to ACR
       run: |
-        docker push $ACR_LOGIN_SERVER/vilas:latest
+        docker push $ACR_LOGIN_SERVER/vilas:${{ github.sha }}
