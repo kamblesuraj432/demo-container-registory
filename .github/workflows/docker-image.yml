@@ -35,7 +35,7 @@ jobs:
 
     - name: Build and tag Docker image
       run: |
-        docker build -t $ACR_LOGIN_SERVER/vilas:${{ github.sha }} .
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/vilas:${{ github.sha }} .
 
     - name: Push Docker image to ACR
       run: |
