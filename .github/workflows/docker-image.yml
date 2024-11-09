@@ -43,9 +43,9 @@ jobs:
     - name: Azure login
       uses: azure/docker-login@v1
       with: 
-         login-server: helloworkday.azurecr.io
-         username: helloworkday
-         password: 6kDss40tNNITUbPZiofDQq8uZdEczZ2T1PSYfwFfql+ACRDjdmQr
+         login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+         username: ${{ secrets.ACR_USERNAME }}
+         password: ${{ secrets.ACR_PASSWORD }}
     - run: |
-        docker build . -t helloworkday.azurecr.io/myapp:${{ github.sha }}
-        docker push helloworkday.azurecr.io/myapp:${{ github.sha }}
+        docker build . -t $login-server/myapp2:${{ github.sha }}
+        docker push $login-server/myapp2:${{ github.sha }}
