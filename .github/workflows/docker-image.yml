@@ -4,8 +4,9 @@ on:
   push:
     branches:
       - main
+
 env:
-  ACR_LOGIN_SERVER1: $${{ secrets.ACR_LOGIN_SERVER }}
+  ACR_LOGIN_SERVER1: ${{ secrets.ACR_LOGIN_SERVER }}
   ACR_USERNAME1: ${{ secrets.ACR_USERNAME }}
   ACR_PASSWORD1: ${{ secrets.ACR_PASSWORD }}
 
@@ -16,12 +17,15 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
     - name: Log in to Azure CLI
       run: |
-        sudo docker login kamblesuraj.azurecr.io -u kamblesuraj -p ${{ secrets.ACR_PASSWORD }}
+        sudo docker login $ACR_LOGIN_SERVER1 -u $ACR_USERNAME1 -p $ACR_PASSWORD1
+
     - name: Build and tag Docker image
       run: |
         docker build . -t $ACR_LOGIN_SERVER1/vilas:latest
+
     - name: Push Docker image to ACR
       run: |
-        docker push ${{ secrets.ACR_LOGIN_SERVER }}/vilas:latest
+        docker push $ACR_LOGIN_SERVER1/vilas:latest
