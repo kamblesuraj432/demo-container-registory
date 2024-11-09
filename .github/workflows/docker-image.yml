@@ -43,9 +43,9 @@ jobs:
     - name: Azure login
       uses: azure/docker-login@v1
       with: 
-         login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+         LOGIN-SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
          username: ${{ secrets.ACR_USERNAME }}
          password: ${{ secrets.ACR_PASSWORD }}
     - run: |
-        docker build . -t $login-server/myapp2:${{ github.sha }}
-        docker push $login-server/myapp2:${{ github.sha }}
+        docker build . -t $LOGIN-SERVER/myapp2:${{ github.sha }}
+        docker push $LOGIN-SERVER/myapp2:${{ github.sha }}
