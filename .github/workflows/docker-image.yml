@@ -44,7 +44,7 @@ jobs:
       uses: azure/docker-login@v1
       with: 
          login-server: helloworkday.azurecr.io
-         username: ${{ secrets.CR_USERNAME }}
+         username: helloworkday
          password: ${{ secrets.ACR_PASSWORD }}
     - run: |
         docker build . -t helloworkday.azurecr.io/myapp1:${{ github.sha }}
