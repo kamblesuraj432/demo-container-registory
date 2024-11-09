@@ -13,7 +13,7 @@ permissions:
 #   ACR_PASSWORD1: ${{ secrets.ACR_PASSWORD }}
 jobs:
   build:
-    runs-on: [self-hosted, vilas-kamble]
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
