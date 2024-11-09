@@ -17,7 +17,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Log in to Azure CLI
-      run:
+      run: |
+        echo "$ACR_LOGIN_SERVER $ACR_USERNAME $ACR_PASSWORD"
         docker login $ACR_LOGIN_SERVER -u $ACR_USERNAME -p $ACR_PASSWORD
     - name: Build and tag Docker image
       run: |
